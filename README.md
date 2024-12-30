@@ -91,4 +91,8 @@ In the project directory, you can run the following scripts:
 
 Refer to the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) for detailed steps to deploy the application.
 
+  ![Screenshot 2024-12-30 111754](https://github.com/user-attachments/assets/fc237a75-e90f-48e1-be2f-ae1b161b6a8f)
+  ![Screenshot 2024-12-30 111907](https://github.com/user-attachments/assets/a491e5bc-c636-48fa-a1e6-55bbf6bd4a19)
+  ![Screenshot 2024-12-30 111957](https://github.com/user-attachments/assets/688a448c-f501-4670-aa0a-79d0eac5743b)
+  ![Screenshot 2024-12-30 111818](https://github.com/user-attachments/assets/533053ad-426e-4357-a364-96a07656510d)
 
