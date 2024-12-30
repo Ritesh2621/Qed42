@@ -11,20 +11,20 @@ const Navbar = ({ setActiveSection, onSearch }) => {
   const categories = ['All Categories', 'Beauty', 'Fragrances', 'Furniture', 'Groceries'];
   const navigate = useNavigate();
   
-  // Reference to the dropdown button and menu
+
   const dropdownRef = useRef(null);
   
   const handleCategoryClick = (category) => {
     setActiveSection(category.toLowerCase());
-    navigate('/'); // Navigate to the desired route, e.g., the home or product page
-    setDropdownOpen(false); // Close dropdown after clicking a category
+    navigate('/'); 
+    setDropdownOpen(false); 
   };
 
-  // Close dropdown if clicked outside
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false); // Close dropdown if clicked outside
+        setDropdownOpen(false);
       }
     };
 
@@ -36,14 +36,14 @@ const Navbar = ({ setActiveSection, onSearch }) => {
 
   return (
     <nav className="bg-blue-500 text-white p-4 flex flex-col lg:flex lg:flex-row justify-between items-center relative">
-      {/* Logo and store name */}
+   
       <div className='w-full flex flex-row justify-between '>
-      <div className="text-xl font-bold flex items-center gap-2">
+      <div className="text-2xl font-bold font-mono flex items-center gap-2">
         <FaStore />
         <Link to="/">MyStore</Link>
       </div>
 
-      {/* Hamburger menu for mobile */}
+
       <button
         className="lg:hidden text-white focus:outline-none"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -53,11 +53,11 @@ const Navbar = ({ setActiveSection, onSearch }) => {
         </svg>
       </button>
       </div>
-      {/* Mobile Menu (hidden on large screens) */}
+
       <div className={`lg:flex lg:justify-end ${mobileMenuOpen ? 'block' : 'hidden'} flex-col items-center gap-6 w-full`}>
-        {/* Mobile - Categories, Cart, My Orders */}
+
         <div className="flex flex-col gap-4 items-center w-full mt-4 lg:flex-row lg:justify-end lg:mt-0">
-          {/* Categories with Dropdown */}
+     
           <div className="relative" ref={dropdownRef}>
             <button
               className="flex items-center gap-2 hover:text-gray-300 transition"
@@ -81,13 +81,13 @@ const Navbar = ({ setActiveSection, onSearch }) => {
             )}
           </div>
 
-          {/* Cart */}
+  
           <Link to="/cart" className="flex items-center gap-2 hover:text-gray-300 transition">
             <FaCartShopping size={20} />
             Cart
           </Link>
 
-          {/* My Orders */}
+   
           <Link to="/myorders" className="flex items-center gap-2 hover:text-gray-300 transition">
             <IoBagCheckSharp size={20} />
             My Orders

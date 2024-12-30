@@ -48,7 +48,7 @@ const CheckoutPage = () => {
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Checkout</h1>
 
         <div className="space-y-4">
-          {/* Order Summary */}
+   
           <div>
             <h2 className="text-xl font-semibold mb-4">Your Order</h2>
             {cartItems.map((item) => (
@@ -69,12 +69,11 @@ const CheckoutPage = () => {
             ))}
           </div>
 
-          {/* Total Amount */}
           <div className="mt-6 text-right">
             <h2 className="text-xl font-semibold">Total: ${total}</h2>
           </div>
 
-          {/* Billing Information */}
+      
           <div className="mt-6">
             <h2 className="text-xl font-semibold mb-4">Billing Information</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
