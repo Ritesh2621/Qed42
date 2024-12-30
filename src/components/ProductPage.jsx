@@ -5,10 +5,9 @@ import { FaSearch } from 'react-icons/fa';
 
 const ProductPage = ({ activeSection, setActiveSection }) => {
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState(''); 
-  const [sortOption, setSortOption] = useState(''); 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOption, setSortOption] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,7 +15,6 @@ const ProductPage = ({ activeSection, setActiveSection }) => {
       try {
         const response = await axios.get('https://dummyjson.com/products');
         setProducts(response.data.products);
-        setFilteredProducts(response.data.products);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -27,24 +25,20 @@ const ProductPage = ({ activeSection, setActiveSection }) => {
     fetchProducts();
   }, []);
 
-
   const filteredProductsMemo = useMemo(() => {
     let filtered = products;
 
-  
     if (activeSection !== 'all categories') {
       filtered = products.filter(
         (product) => product.category.toLowerCase() === activeSection
       );
     }
 
-
     if (searchQuery) {
       filtered = filtered.filter((product) =>
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
-
 
     if (sortOption === 'priceLowToHigh') {
       filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
@@ -56,10 +50,6 @@ const ProductPage = ({ activeSection, setActiveSection }) => {
 
     return filtered;
   }, [activeSection, products, searchQuery, sortOption]);
-
-  useEffect(() => {
-    setFilteredProducts(filteredProductsMemo);
-  }, [filteredProductsMemo]);
 
   if (loading) {
     return (
@@ -74,23 +64,24 @@ const ProductPage = ({ activeSection, setActiveSection }) => {
 
   return (
     <div>
-  
       <main className="p-4 mt-6">
-        <div className="flex justify-between w-[90%] mb-4">
-          <h1 className="text-2xl font-bold capitalize">{activeSection}</h1>
-          <div className="flex items-center gap-2">
-            <FaSearch size={20} />
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} 
-              className="border rounded-lg p-2"
-            />
+        <div className="flex flex-col sm:flex-row justify-between w-full mb-4">
+          <h1 className="text-2xl font-bold capitalize sm:w-2/3">{activeSection}</h1>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:w-1/3">
+            <div className="flex items-center gap-2 mb-4 sm:mb-0 w-full">
+              <FaSearch size={20} />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="border rounded-lg p-2 w-full"
+              />
+            </div>
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="border rounded-lg p-2"
+              className="border rounded-lg p-2 w-full sm:w-auto"
             >
               <option value="">Sort by</option>
               <option value="priceLowToHigh">Price: Low to High</option>
@@ -99,9 +90,10 @@ const ProductPage = ({ activeSection, setActiveSection }) => {
             </select>
           </div>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filteredProducts.length > 0 ? (
-            filteredProducts.map((product) => (
+          {filteredProductsMemo.length > 0 ? (
+            filteredProductsMemo.map((product) => (
               <div
                 key={product.id}
                 onClick={() => navigate(`/product/${product.id}`)}

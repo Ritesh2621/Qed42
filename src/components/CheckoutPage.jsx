@@ -12,7 +12,6 @@ const CheckoutPage = () => {
     email: "",
   });
 
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -21,11 +20,9 @@ const CheckoutPage = () => {
     }));
   };
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-
-   
+    
     const order = {
       id: new Date().getTime(), 
       customer: formData,
@@ -35,17 +32,13 @@ const CheckoutPage = () => {
       date: new Date().toLocaleString(),
     };
 
-   
     const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
     existingOrders.push(order);
 
-  
     localStorage.setItem("orders", JSON.stringify(existingOrders));
 
-  
     localStorage.removeItem("cart");
 
-   
     navigate("/myorders");
   };
 
@@ -55,17 +48,18 @@ const CheckoutPage = () => {
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Checkout</h1>
 
         <div className="space-y-4">
+          {/* Order Summary */}
           <div>
             <h2 className="text-xl font-semibold mb-4">Your Order</h2>
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between items-center border-b py-4">
-                <div className="flex items-center">
+                <div className="flex items-center space-x-4">
                   <img
                     src={item.images && item.images[0]}
                     alt={item.title}
                     className="w-20 h-20 object-cover rounded-lg"
                   />
-                  <div className="ml-4">
+                  <div>
                     <h2 className="text-xl font-semibold">{item.title}</h2>
                     <p className="text-gray-600">${item.price}</p>
                     <p className="text-gray-600">Quantity: {item.quantity}</p>
@@ -75,15 +69,15 @@ const CheckoutPage = () => {
             ))}
           </div>
 
-      
+          {/* Total Amount */}
           <div className="mt-6 text-right">
             <h2 className="text-xl font-semibold">Total: ${total}</h2>
           </div>
 
-        
+          {/* Billing Information */}
           <div className="mt-6">
             <h2 className="text-xl font-semibold mb-4">Billing Information</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700">Full Name</label>
                 <input
@@ -122,7 +116,7 @@ const CheckoutPage = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold"
+                className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold w-full sm:w-auto"
               >
                 Place Order
               </button>

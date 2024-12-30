@@ -9,12 +9,10 @@ const CartPage = () => {
     setCartItems(cart);
   }, []);
 
-
-  
   const updateQuantity = (id, change) => {
     const updatedCart = cartItems.map((item) =>
       item.id === id
-        ? { ...item, quantity: Math.max(item.quantity + change, 1) } 
+        ? { ...item, quantity: Math.max(item.quantity + change, 1) }
         : item
     );
     setCartItems(updatedCart);
@@ -27,12 +25,14 @@ const CartPage = () => {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
-
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      const discountedPrice = item.price - (item.price * item.discountPercentage) / 100;
-      return total + discountedPrice * item.quantity;
-    }, 0).toFixed(2);
+    return cartItems
+      .reduce((total, item) => {
+        const discountedPrice =
+          item.price - (item.price * item.discountPercentage) / 100;
+        return total + discountedPrice * item.quantity;
+      }, 0)
+      .toFixed(2);
   };
 
   return (
@@ -46,18 +46,17 @@ const CartPage = () => {
             {cartItems.map((item) => (
               <div
                 key={item.id}
-                className="flex justify-between items-center border-b py-4"
+                className="flex flex-col sm:flex-row justify-between items-center border-b py-4"
               >
-                <div className="flex items-center">
-                 
+                <div className="flex items-center mb-4 sm:mb-0">
                   <img
                     src={item.images && item.images[0]}
                     alt={item.title}
                     className="w-20 h-20 object-cover rounded-lg"
                   />
-                  <div className="ml-4 ">
+                  <div className="ml-4">
                     <h2 className="text-xl font-semibold">{item.title}</h2>
-                    <div className="flex space-x-2  p-2">
+                    <div className="flex space-x-2 p-2">
                       <p className="line-through text-gray-500">
                         ${Math.round(
                           item.price / (1 - item.discountPercentage / 100)
@@ -97,14 +96,14 @@ const CartPage = () => {
             ))}
           </div>
         )}
- 
+
         <div className="mt-6 text-right">
           <h2 className="text-xl font-semibold">Total: ${calculateTotal()}</h2>
         </div>
         <div className="mt-6 text-right">
           <Link
             to="/checkout"
-            state={{ total: calculateTotal(), cartItems }} 
+            state={{ total: calculateTotal(), cartItems }}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold"
           >
             Proceed to Checkout

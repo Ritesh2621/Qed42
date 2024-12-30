@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +8,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isInCart, setIsInCart] = useState(false); 
+  const [isInCart, setIsInCart] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +18,7 @@ const ProductDetail = () => {
           `https://dummyjson.com/products/${id}`
         );
         setProduct(response.data);
-        setSelectedImage(response.data.images[0]); 
+        setSelectedImage(response.data.images[0]);
         setLoading(false);
 
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -33,13 +32,14 @@ const ProductDetail = () => {
 
     fetchProductDetail();
   }, [id]);
+
   const addToCart = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProductIndex = cart.findIndex((item) => item.id === product.id);
     if (existingProductIndex === -1) {
       cart.push({ ...product, quantity: 1 });
       localStorage.setItem("cart", JSON.stringify(cart));
-      setIsInCart(true); 
+      setIsInCart(true);
     }
   };
 
@@ -53,13 +53,11 @@ const ProductDetail = () => {
         images: product.images,
       },
     ];
-  
 
     const total = product.price;
 
     navigate("/checkout", { state: { total, cartItems: singleItemCheckout } });
   };
-  
 
   if (loading) {
     return (
@@ -91,35 +89,32 @@ const ProductDetail = () => {
   return (
     <div className="bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-lg p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-       
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {/* Image Section */}
           <div className="flex flex-col items-center">
-      
             <img
               src={selectedImage}
               alt="Main Product"
               className="w-full h-[500px] object-contain rounded-lg shadow-lg"
             />
 
-        
             {product.images.length > 1 && (
-              <div className="flex space-x-3 mt-4">
+              <div className="flex space-x-3 mt-4 overflow-x-auto">
                 {product.images.slice(1).map((image, index) => (
                   <img
                     key={index}
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
                     className="w-16 h-16 object-contain border rounded-md cursor-pointer hover:border-blue-500"
-                    onClick={() => setSelectedImage(image)} 
+                    onClick={() => setSelectedImage(image)}
                   />
                 ))}
               </div>
             )}
           </div>
 
-     
+          {/* Product Info Section */}
           <div className="flex flex-col">
-  
             <h1 className="text-3xl font-bold text-gray-900">
               {product.title}
             </h1>
@@ -140,9 +135,8 @@ const ProductDetail = () => {
               <p className="text-gray-700 text-sm">{product.description}</p>
             </div>
 
-
             <div className="flex space-x-4 my-4">
-            <button
+              <button
                 onClick={addToCart}
                 className={`${
                   isInCart
@@ -158,6 +152,7 @@ const ProductDetail = () => {
               </button>
             </div>
 
+            {/* Product Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
               <div>
                 <p className="text-lg text-gray-600 mb-3">
@@ -195,7 +190,7 @@ const ProductDetail = () => {
           </div>
         </div>
 
-
+        {/* Reviews Section */}
         <div className="mb-6">
           <h2 className="text-2xl font-bold mb-2">Reviews</h2>
           {product.reviews.length > 0 ? (
