@@ -2,6 +2,8 @@
 
 This project is a feature-rich e-commerce web application built using React and Create React App. It provides a seamless shopping experience with functionalities like product search, filtering, sorting, cart management, and checkout.
 
+The website is live on vercel [https://qed42assignment.vercel.app)
+
 ## Features
 
 ### 1. Fetch and Display Products
