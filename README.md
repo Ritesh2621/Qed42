@@ -47,7 +47,7 @@ Ensure you have the following installed on your system:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ritesh2621/Qed42.git .
    ```
 
 2. Open the project directory in VSCode:
